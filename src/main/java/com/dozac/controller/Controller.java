@@ -3,6 +3,7 @@ package com.dozac.controller;
 
 import com.dozac.producer.ProducerKafka;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ByteArrayResource;
@@ -25,6 +26,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.io.*;
+import javax.sound.sampled.*;
 
 
 @RestController
@@ -39,7 +42,7 @@ public class Controller {
 
 
     @GetMapping("/sound")
-    public ResponseEntity<ByteArrayResource> sound(@RequestParam("file") MultipartFile multipart) throws IOException {
+    public ResponseEntity<ByteArrayResource> sound(@RequestParam("file") MultipartFile multipart) throws IOException{
 
         File target = convertToMp3(convertMultiPartToFile(multipart));
         HttpHeaders headers = new HttpHeaders();
